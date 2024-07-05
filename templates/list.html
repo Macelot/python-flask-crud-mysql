@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="col-lg-12">
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for car in cars %}
+                    <tr>
+                        <td>{{ car[0] }}</td> 
+                        <td>{{ car[1] }}</td>
+                        <td>{{ car[2] }}</td>
+                        <td>{{ car[3] }}</td>
+                        <td>Pagenr: {{ pageno }}</td>
+                        <td>Total Pages: {{ total_pages }}</td>
+                        <td>Total Rows: {{ total_rows }}</td>
+                        <td>
+                            <a href="edit/{{ car[0] }}" type="button" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="delete/{{ car[0] }}" type="button" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row float-end">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="?pageno=1">First</a>
+                    </li>
+                    {% if pageno <= 1 %}
+                        <li class="page-item">
+                            <a class="page-link disabled" href="#">Prev</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link active" href="?pageno={{ pageno - 1 }}">Prev</a></li>
+                    {% endif %}
+                    {% if pageno >= total_pages %} 
+                        <li class="page-item">
+                            <a class="page-link disabled" href="#">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link active" href="?pageno={{ pageno + 1 }}">Next</a></li>
+                    {% endif %}
+                    {% if total_pages <= pageno %}
+                        <li class="page-item">
+                            <a class="page-link disabled" href="#">Last</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?pageno={{ total_pages }}">Last</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}
